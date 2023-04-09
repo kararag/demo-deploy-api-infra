@@ -1,3 +1,5 @@
+# Bastion security group creation to allow only ssh
+
 resource "aws_security_group" "demo-bastion-sg" {
   name   = "demo-bastion-sg"
   vpc_id = var.vpc_cidr.id
@@ -21,6 +23,8 @@ resource "aws_security_group" "demo-bastion-sg" {
   }
 }
 
+# To create a new key pair for ssh 
+
 resource "aws_key_pair" "demo_app_key" {
   count      = var.create_new_key_pair ? 1 : 0
   key_name   = var.ssh_key_pair_name
@@ -30,6 +34,8 @@ resource "aws_key_pair" "demo_app_key" {
       ignore_changes = [public_key]
     }
 }
+
+# Checking the ubuntu based AMI tag for demo and using it to launch a bastion server
 
 data "aws_ami" "ubuntu" {
   most_recent = true
@@ -46,6 +52,8 @@ data "aws_ami" "ubuntu" {
 
   owners = ["099720109477"] # Canonical
 }
+
+# To create a bastion server based on above AMI image tag
 
 resource "aws_instance" "demo-bastion-server" {
   ami                         = data.aws_ami.ubuntu.id

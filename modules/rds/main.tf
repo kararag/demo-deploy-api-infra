@@ -1,3 +1,5 @@
+# Creation for RDS security group
+
 resource "aws_security_group" "rds-sg" {
 
   name = "Load balancer for RDS"
@@ -11,6 +13,8 @@ resource "aws_security_group" "rds-sg" {
   }
 }
 
+# Creation of security rule for the security group for RDS
+
 resource "aws_security_group_rule" "public_out" {
 
   type        = "egress"
@@ -20,6 +24,8 @@ resource "aws_security_group_rule" "public_out" {
   cidr_blocks = ["0.0.0.0/0"]
   security_group_id = aws_security_group.rds-sg.id
 }
+
+# Adding inbound rule to allow only from application security group on port 5432. As demo is using the postgres RDS
 
 resource "aws_security_group_rule" "private_in" {
 
@@ -36,11 +42,15 @@ lifecycle {
 
 }
 
+# Creation of subnet group for sample RDS
+
 resource "aws_db_subnet_group" "demo-rds-subnet-group" {
   name        = "demo-rds-app"
   description = "DB subnet group"
   subnet_ids  = var.subnets
 }
+
+# Creation of RDS instance in the custom VPC and passing configuration, can be modified via tf vars
 
 resource "aws_db_instance" "demo-rds" {
   allocated_storage      = var.storage
@@ -57,6 +67,8 @@ resource "aws_db_instance" "demo-rds" {
   backup_retention_period = 7
   maintenance_window      = "Fri:09:00-Fri:09:30"
 }
+
+# Configuring the snapshot for the sample
 
 resource "aws_db_snapshot" "demo-rds-snap" {
   db_instance_identifier = aws_db_instance.demo-rds.id

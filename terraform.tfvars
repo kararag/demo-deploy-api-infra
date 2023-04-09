@@ -28,7 +28,7 @@ key_pair_existing = "demo-bastion"
 # Type of ec2 instance; Default keeping as "t2.micro" type
 instance_type     = "t2.micro"
 
-# Load balancer type; Mandatory to keep it as "application" for ALB
+# Load balancer type; For the demo purpose we are using ALB
 lb_type     = "application"
 
 # Public facing or internal load balancer; Mandatory to keep as "false" for internet facing

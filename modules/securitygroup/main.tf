@@ -1,3 +1,5 @@
+# Creation of security group for load balancer
+
 resource "aws_security_group" "lb" {
 
   name = "Load balancer security group"
@@ -11,6 +13,8 @@ resource "aws_security_group" "lb" {
   }
 }
 
+# Adding outbound rule for security group for load balancer
+
 resource "aws_security_group_rule" "public_out" {
 
   type        = "egress"
@@ -20,6 +24,8 @@ resource "aws_security_group_rule" "public_out" {
   cidr_blocks = ["0.0.0.0/0"]
   security_group_id = aws_security_group.lb.id
 }
+
+# Adding inbound rule for security group for load balancer on port 80. 
  
 resource "aws_security_group_rule" "public_in_http" {
 
@@ -35,7 +41,8 @@ lifecycle {
   }
 }
 
- 
+# Creation of security group for application servers
+
 resource "aws_security_group" "app" {
 
   name = "Application Security group"
@@ -52,6 +59,8 @@ resource "aws_security_group" "app" {
 
 }
 
+# Adding outbound rule for security group for application security group
+
 resource "aws_security_group_rule" "private_out" {
 
   type                       = "egress"
@@ -65,6 +74,8 @@ lifecycle {
     create_before_destroy = true
   }
 }
+
+# Adding inbound rule for security group for application security group on port 80
 
 resource "aws_security_group_rule" "private_in" {
 
@@ -80,6 +91,8 @@ lifecycle {
   }
 
 }
+
+# Adding inbound rule for security group for bastion host on port 22 for ssh
 
 resource "aws_security_group_rule" "private_in_bastion" {
 

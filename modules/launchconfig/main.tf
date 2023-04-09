@@ -1,3 +1,5 @@
+# To get the latest ubuntu AMI tag on filter 
+
 data "aws_ami" "ubuntu-new" {
   most_recent = true
 
@@ -15,6 +17,8 @@ data "aws_ami" "ubuntu-new" {
 }
 
 data "aws_availability_zones" "all" {}
+
+# Based on above AMI and using it to create a launch config and passing some user data script for a sample node app. For demo purpose we are using spot nodes
 
 resource "aws_launch_configuration" "demo_app_lc" {
 
@@ -52,6 +56,7 @@ resource "aws_launch_configuration" "demo_app_lc" {
   }
 }
 
+# Configuring the Auto scaling group for the sample node app; min: 1 & max: 2 for demo
 
 resource "aws_autoscaling_group" "demo_app_as" {
   name                 = var.autoscaling_group_name
@@ -91,6 +96,8 @@ resource "aws_autoscaling_attachment" "asg_attachment_bar" {
   alb_target_group_arn   = var.lb_target_group_arn
 
 }
+
+# Attaching the Autoscaling policy based on CPU metrics 
 
 resource "aws_autoscaling_policy" "demo-asg-policy" {
   

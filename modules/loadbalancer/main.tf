@@ -2,6 +2,8 @@ locals {
   alb_root_account_id = "718504428378" # valid account id for Mumbai Region. Full list -> https://docs.aws.amazon.com/elasticloadbalancing/latest/application/load-balancer-access-logs.html
 }
 
+# Creating the s3 bucket for HTTP alb logs and attaching the required policy
+
 resource "aws_s3_bucket" "alb_logs" {
   bucket = var.alb_bucket_name
   force_destroy = true
@@ -61,6 +63,8 @@ POLICY
   }
 }
 
+# To create a ALB to redirect request to the API sample app on port 80. For demo purpose we are using port 80. 
+
 resource "aws_lb" "demo-lb" {
   name               = var.name
   internal           = var.lb_internal
@@ -85,6 +89,8 @@ resource "aws_lb" "demo-lb" {
   }
 }
 
+# Configuring the target group for the sample app, which will be running on port 80. 
+
 resource "aws_lb_target_group" "demo-app-http-tg" {
   name            = "app-http-tg"
   port            = 80
@@ -101,6 +107,8 @@ resource "aws_lb_target_group" "demo-app-http-tg" {
     matcher             = "200"
   }
 }
+
+# Adding a listner for sample app for healthchecks and target instances behind ALB
 
 resource "aws_lb_listener" "demo_http_listner" {
   load_balancer_arn = aws_lb.demo-lb.arn
