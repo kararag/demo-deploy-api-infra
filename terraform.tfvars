@@ -22,7 +22,7 @@ create_new_key_pair = "true"
 # Full path of the SSH public key; Mandatory to pass when "create_new_key_pair" is set to "true"
 ssh_key_filename     = "~/.ssh/demo-bastion.pub"
 
-# Pass the name of existing key pair; Mandatory to use a new key pair by setting "create_new_key_pair" is set to "true"
+# Pass the name of existing key pair; else mandatory to use a new key pair by setting "create_new_key_pair" is set to "true"
 key_pair_existing = "demo-bastion"
 
 # Type of ec2 instance; Default keeping as "t2.micro" type
