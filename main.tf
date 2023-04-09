@@ -37,18 +37,18 @@ module "securitygroup" {
 
 }
 
-# module "rds" {
-#   source               = "./modules/rds"
-#   vpc_cidr             = module.vpc.vpc_id
-#   rds_sg               = module.securitygroup.app_sg_id
-#   subnets              = module.vpc.private_subnets_id[*].id
-#   storage              = var.storage
-#   instance_class       = var.instance_class
-#   engine               = var.engine
-#   db_name              = var.db_name
-#   db_pass              = var.db_pass
-#   db_username          = var.db_username 
-# }
+module "rds" {
+  source               = "./modules/rds"
+  vpc_cidr             = module.vpc.vpc_id
+  rds_sg               = module.securitygroup.app_sg_id
+  subnets              = module.vpc.private_subnets_id[*].id
+  storage              = var.storage
+  instance_class       = var.instance_class
+  engine               = var.engine
+  db_name              = var.db_name
+  db_pass              = var.db_pass
+  db_username          = var.db_username 
+}
 
 
 module "loadbalancer" {
