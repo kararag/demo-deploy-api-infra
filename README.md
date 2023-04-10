@@ -11,7 +11,7 @@ To have a bastion server in the public subnet which allows ssh on port 22 and to
 2. launchConfig 
 
 `
-This defines the launch config of the demo sample app which is configured to run on port 80, as well as the autoscaling group and it's scaling rule applied for the same. Here we are using a docker image in the init script to expose service with load balancer and most importantly, for demo purpose spot nodes are being used for the same.
+This defines the launch config of the demo sample app which is configured to run on port 80, as well as the autoscaling group and it's scaling rule applied for the same. Here it's using a sample docker image for the nodejs in the init script to expose service with load balancer and most importantly, for demo purpose spot nodes are being used for the same.
 `
 
 3. LoadBalancer
@@ -96,6 +96,10 @@ terraform apply
 ``
 
 7. Should take some time to create the resources and the components. The above command will give you the load balancer dns link as the output that is the load balancer dns for the deployed sample app. 
+
+``
+Navigate to any browser and hit  http://<LB_DNS>/ or http://<LB_DNS>/information
+``
 
 ref:
 
