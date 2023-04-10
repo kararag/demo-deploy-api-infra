@@ -55,9 +55,12 @@ Below is the terraform graph for the plan output for reference the flow -
 
 ![graph](https://user-images.githubusercontent.com/107810255/230816677-3703111d-ad87-48d4-a130-e32c7fe77fc0.png)
 
-
+ENV:
+Terraform v0.15.0
 
 # Installation 
+
+
 
 1. Clone this repo 
 
