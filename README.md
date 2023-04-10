@@ -42,13 +42,13 @@ VPC module configures the network components which starts from creating the cust
 To sum up the resources that will be created with this -
 
 ```
-VPC
-IG, NAT, Subnets, route tables
-Security groups for LB and app
-RDS (by default multi AZ is false, can be enabled in code)
-Spot node launch config with ASG configured and it's scaling rule for the demo app (by default count is 1 and max is 2)
-Load balancer and it's target group and health checks configured to listen on port 80
-A on-demand bastion host that will be a jumpserver for ssh
+1. VPC
+2. IG, NAT, Subnets, route tables (two AZ)
+3. Security groups for LB and app
+4. RDS (by default multi AZ is false, can be enabled in code)
+5. Spot node launch config with ASG configured and it's scaling rule for the demo app (by default count is 1 and max is 2)
+6. Load balancer and it's target group and health checks configured to listen on port 80
+7. An on-demand bastion host that will be a jumpserver for ssh
 ```
 
 Below is the terraform graph for the plan output for reference the flow - 
@@ -71,4 +71,33 @@ $ git clone git@github.com:kararag/demo-deploy-api-infra.git
 $ Update the bucket name in backend.tf
 ``
 
-3. Once above is set, it uses and picks the default values from the tf.vars. Please refer file terraform.tfvars. Have marked the comments for the inputs vars which can be re-configured for the demo app. 
+3. Once above is set, it uses and picks the default values from the tf.vars. Please refer file terraform.tfvars. There's mark comments for the inputs vars which can be re-configured for the demo app. Please changes the values as mentinoed CHANGEME in the .tfvars file and save it
+
+``
+$ vi terraform.tfvars
+``
+
+4. In the root of the folder, initialise the terrafrom plugins
+
+``
+terrafrom init
+``
+
+5. Once the terrafom modules, and packages are initialised. We can see the plan for the whole infra and resources
+
+``
+terraform plan 
+``
+
+6. Deploy the demo infra resources
+
+``
+terraform apply
+``
+
+7. Should take some time to create the resources and the components. The above command will give you the load balancer dns link as the output that is the load balancer dns for the deployed sample app. 
+
+ref:
+
+<img width="1440" alt="Screenshot 2023-04-09 at 7 17 35 PM" src="https://user-images.githubusercontent.com/107810255/230819906-5ef89c57-3841-4209-b403-792f5df35317.png">
+
