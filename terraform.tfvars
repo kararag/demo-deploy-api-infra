@@ -33,7 +33,7 @@ lb_type     = "application"
 # Public facing or internal load balancer; Mandatory to keep as "false" for internet facing
 lb_internal     = false
 
-# RDS
+# RDS (this for demo, multi AZ is disabled to enable in back please set the multi_az argument to "true" from rds module )
 
 # Storage size for the RDS instance 
 storage  = "20" #CHANGEME
